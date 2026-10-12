@@ -1,4 +1,3 @@
-%%writefile app_a2.py
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -49,20 +48,20 @@ c1, c2 = st.columns(2)
 trend = d.groupby(["year", "origin"], as_index=False)["mpg"].mean()
 c1.plotly_chart(px.line(trend, x="year", y="mpg", color="origin", markers=True, color_discrete_map=colors,
                         title="Fuel efficiency improved every year",
-                        labels={"mpg": "Average mpg", "year": "Model year"}), width="stretch")
+                        labels={"mpg": "Average mpg", "year": "Model year"}), use_container_width=True)
 c2.plotly_chart(px.scatter(d, x="weight", y="mpg", color="origin", hover_name="name", color_discrete_map=colors,
                            title="Heavier cars use more fuel",
-                           labels={"weight": "Weight (lb)", "mpg": "Miles per gallon"}), width="stretch")
+                           labels={"weight": "Weight (lb)", "mpg": "Miles per gallon"}), use_container_width=True)
 c3, c4 = st.columns(2)
 c3.plotly_chart(px.box(d, x="cylinders", y="mpg", title="More cylinders, lower mpg",
-                       labels={"mpg": "Miles per gallon", "cylinders": "Cylinders"}), width="stretch")
+                       labels={"mpg": "Miles per gallon", "cylinders": "Cylinders"}), use_container_width=True)
 share = d["origin"].value_counts().reset_index()
 share.columns = ["origin", "cars"]
 c4.plotly_chart(px.bar(share, x="origin", y="cars", color="origin", color_discrete_map=colors,
                        title="Where the selected cars come from",
-                       labels={"cars": "Number of cars", "origin": "Origin"}), width="stretch")
+                       labels={"cars": "Number of cars", "origin": "Origin"}), use_container_width=True)
 
 # Step 4c. The data behind the charts, and a download button
 with st.expander("Show the data"):
-    st.dataframe(d.sort_values("mpg", ascending=False), width="stretch")
+    st.dataframe(d.sort_values("mpg", ascending=False), use_container_width=True)
     st.download_button("Download as CSV", d.to_csv(index=False), "auto_filtered.csv")
