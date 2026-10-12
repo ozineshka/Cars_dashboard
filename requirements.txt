@@ -1,0 +1,4 @@
+%%writefile requirements.txt
+plotly
+pandas
+scikit-learn
